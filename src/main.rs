@@ -129,6 +129,7 @@ async fn get_region(param: web::Path<(usize,)>) -> HttpResponse {
     }));
 }
 
+// TODO: getting all regions manually here until pokemon_rs is supporting getting all regions
 #[get("/pokemon-api/region/all/")]
 async fn get_all_regions() -> HttpResponse {
     let all_regions: Vec<RegionResponse> = (1..10)
