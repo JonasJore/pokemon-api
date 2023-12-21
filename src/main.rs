@@ -6,32 +6,32 @@ use serde::{Deserialize, Serialize};
 use serde_json::json;
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct PokemonResponse {
+struct PokemonResponse {
     id: i32,
     name: String,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct RegionResponse {
+struct RegionResponse {
     id: i32,
     region_name: String,
 }
 
-pub fn invalid_req(message: String) -> HttpResponse {
+fn invalid_req(message: String) -> HttpResponse {
     HttpResponse::BadRequest().json(json!({
         "error": "InvalidArgument",
         "message": message
     }))
 }
 
-pub fn capitalize_first_letter(name: String) -> String {
+fn capitalize_first_letter(name: String) -> String {
     let mut v: Vec<char> = name.chars().collect();
     v[0] = v[0].to_uppercase().nth(0).unwrap();
 
     return v.into_iter().collect();
 }
 
-pub fn does_pokemon_exist(name: &String) -> bool {
+fn does_pokemon_exist(name: &String) -> bool {
     let result = std::panic::catch_unwind(|| {
         pokemon_rs::get_id_by_name(name.as_str(), None);
     });
@@ -39,7 +39,7 @@ pub fn does_pokemon_exist(name: &String) -> bool {
     return result.is_ok();
 }
 
-pub fn does_region_exist(number: &usize) -> bool {
+fn does_region_exist(number: &usize) -> bool {
     let result = std::panic::catch_unwind(|| {
         pokemon_rs::get_region(*number);
     });
